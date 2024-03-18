@@ -1,0 +1,53 @@
+{
+  "name": "datafusion-pipeline-2",
+  "appVersion": "4913bc05-e4f3-11ee-90e1-4e30f1cc2964",
+  "description": "Data Pipeline Application",
+  "change": {
+    "author": "cdap",
+    "creationTimeMillis": 1710744405089,
+    "latest": true
+  },
+  "configuration": "{\"resources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"driverResources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"connections\":[{\"from\":\"GCSFile\",\"to\":\"Wrangler\"},{\"from\":\"Wrangler\",\"to\":\"BigQuery\"}],\"postActions\":[],\"properties\":{},\"processTimingEnabled\":true,\"stageLoggingEnabled\":true,\"stages\":[{\"name\":\"GCSFile\",\"plugin\":{\"name\":\"GCSFile\",\"type\":\"batchsource\",\"label\":\"GCSFile\",\"artifact\":{\"name\":\"google-cloud\",\"version\":\"0.22.2\",\"scope\":\"SYSTEM\"},\"properties\":{\"path\":\"gs://santhosh-demo-bucket/employee.csv\",\"fileEncoding\":\"UTF-8\",\"useConnection\":\"true\",\"format\":\"csv\",\"enableQuotedValues\":\"false\",\"connection\":\"${conn(Cloud Storage Default)}\",\"skipHeader\":\"true\",\"referenceName\":\"santhosh-demo-bucket.employee.csv\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"text\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":\\\"string\\\"}]}\"}},\"outputSchema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"text\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":\\\"string\\\"},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":\\\"int\\\"},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":\\\"string\\\"}]}\",\"id\":\"GCSFile\"},{\"name\":\"Wrangler\",\"plugin\":{\"name\":\"Wrangler\",\"type\":\"transform\",\"label\":\"Wrangler\",\"artifact\":{\"name\":\"wrangler-transform\",\"version\":\"4.9.2\",\"scope\":\"SYSTEM\"},\"properties\":{\"directives\":\"uppercase :Name\\ntitlecase :Department\\nfind-and-replace :Age s/28/30/g\",\"field\":\"*\",\"precondition\":\"false\",\"workspaceId\":\"97a70182-eae8-495c-ba03-c0228960e8b9\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"record\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]}]}\"}},\"outputSchema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"record\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]}]}\",\"id\":\"Wrangler\"},{\"name\":\"BigQuery\",\"plugin\":{\"name\":\"BigQueryTable\",\"type\":\"batchsink\",\"label\":\"BigQuery\",\"artifact\":{\"name\":\"google-cloud\",\"version\":\"0.22.2\",\"scope\":\"SYSTEM\"},\"properties\":{\"useConnection\":\"false\",\"project\":\"auto-detect\",\"serviceAccountType\":\"filePath\",\"serviceFilePath\":\"auto-detect\",\"dataset\":\"demo_fusion\",\"table\":\"data_from_fusion\",\"operation\":\"insert\",\"truncateTable\":\"false\",\"allowSchemaRelaxation\":\"false\",\"location\":\"US\",\"createPartitionedTable\":\"false\",\"partitioningType\":\"TIME\",\"partitionFilterRequired\":\"false\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"record\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]}]}\"}},\"outputSchema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"record\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]}]}\",\"inputSchema\":[{\"name\":\"Wrangler\",\"schema\":\"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"record\\\",\\\"fields\\\":[{\\\"name\\\":\\\"Employee_ID\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Name\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Age\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Department\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Salary\\\",\\\"type\\\":[\\\"int\\\",\\\"null\\\"]},{\\\"name\\\":\\\"Join_Date\\\",\\\"type\\\":[\\\"string\\\",\\\"null\\\"]}]}\"}],\"id\":\"BigQuery\"}],\"schedule\":\"0 1 */1 * *\",\"engine\":\"spark\",\"numOfRecordsPreview\":100.0,\"rangeRecordsPreview\":{\"min\":1.0,\"max\":\"5000\"},\"description\":\"Data Pipeline Application\",\"maxConcurrentRuns\":1.0}",
+  "datasets": [],
+  "programs": [
+    {
+      "type": "Spark",
+      "app": "datafusion-pipeline-2",
+      "name": "phase-1",
+      "description": "Sources \u0027GCSFile\u0027 to sinks \u0027BigQuery\u0027."
+    },
+    {
+      "type": "Workflow",
+      "app": "datafusion-pipeline-2",
+      "name": "DataPipelineWorkflow",
+      "description": "Data Pipeline Workflow"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "GCSFile",
+      "name": "GCSFile",
+      "type": "batchsource"
+    },
+    {
+      "id": "GCSFile:csv",
+      "name": "csv",
+      "type": "validatingInputFormat"
+    },
+    {
+      "id": "BigQuery",
+      "name": "BigQueryTable",
+      "type": "batchsink"
+    },
+    {
+      "id": "Wrangler",
+      "name": "Wrangler",
+      "type": "transform"
+    }
+  ],
+  "artifact": {
+    "name": "cdap-data-pipeline",
+    "version": "6.9.2",
+    "scope": "SYSTEM"
+  }
+}
